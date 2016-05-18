@@ -1,0 +1,16 @@
+<h1>Store Catalog</h1>
+<% cache ['store', Product.latest] do %>
+  <% @products.each do |product| %>
+    <% cache ['entry', product] do %>
+      <div class="entry">
+        <%= image_tag(product.image_url) %>
+        <h3><%= product.title %></h3>
+        <%= sanitize(product.description) %>
+        <div class="price_line">
+          <span class="price"><%= number_to_currency(product.price) %></span>
+          <%= button_to 'Add to cart', line_items_path(product_id: product) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
